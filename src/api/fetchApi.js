@@ -8,4 +8,12 @@ const fetchApiParticipants = {
   putP: (data) => axiosInstance.put(`participant`, data),
 };
 
-export { fetchApiParticipants };
+const fetchApiAuth = {
+  login: (data) => axiosInstance.post(`login`, data),
+};
+
+const fetchApiQuiz = {
+  getQBP: () => axiosInstance.get(`quiz-by-participant`),
+};
+
+export { fetchApiParticipants, fetchApiAuth, fetchApiQuiz };

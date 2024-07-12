@@ -4,9 +4,22 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link, NavLink } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { loginState } from "../../store/selector";
+import { typeActionPostLogin } from "../../store/auth/postLogin/actions";
 const Header = () => {
+  const navigate = useNavigate();
+  const statusLoginState = useSelector(loginState);
+  const { dataPostLogin } = statusLoginState;
+  const dispatch = useDispatch();
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  const handleClickLogout = () => {
+    dispatch(typeActionPostLogin.fetchPostLoginSuccess(null));
+  };
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -27,13 +40,22 @@ const Header = () => {
             </NavLink>
           </Nav>
           <Nav>
-            <button className="btn-login">Login</button>
-            <button className="btn-signup">Sign up</button>
-            {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
-              <NavDropdown.Item>Login</NavDropdown.Item>
-              <NavDropdown.Item>Logout</NavDropdown.Item>
-              <NavDropdown.Item>Profile</NavDropdown.Item>
-            </NavDropdown> */}
+            {!dataPostLogin ? (
+              <>
+                <button className="btn-login" onClick={handleLogin}>
+                  Login
+                </button>
+                <button className="btn-signup">Sign up</button>
+              </>
+            ) : (
+              <NavDropdown title="Setting" id="basic-nav-dropdown">
+                <NavDropdown.Item>Login</NavDropdown.Item>
+                <NavDropdown.Item onClick={handleClickLogout}>
+                  Logout
+                </NavDropdown.Item>
+                <NavDropdown.Item>Profile</NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

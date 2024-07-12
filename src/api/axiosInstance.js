@@ -1,5 +1,6 @@
 import axios from "axios";
 import NProgress from "nprogress";
+import { store } from "../store/store";
 const baseUrl = "http://localhost:8081/api/v1/";
 
 NProgress.configure({
@@ -15,7 +16,8 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   function (config) {
     NProgress.start();
-    const token = "";
+    const token = store.getState()?.login?.dataPostLogin?.access_token;
+
     config.headers.Authorization = `Bearer ${token}`;
 
     // Kiểm tra nếu dữ liệu là FormData thì cấu hình headers

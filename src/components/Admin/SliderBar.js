@@ -11,6 +11,7 @@ import {
 import { FaTachometerAlt, FaList, FaGithub } from "react-icons/fa";
 import { FaReact } from "react-icons/fa6";
 import sidebarBg from "../../assets/bg2.jpg";
+import { Link } from "react-router-dom";
 const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
   return (
     <ProSidebar
@@ -46,12 +47,14 @@ const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
             icon={<FaTachometerAlt />}
             suffix={<span className="badge red">New</span>}
           >
-            dashboard
+            dashboard <Link to={"/admin"} />
           </MenuItem>
         </Menu>
         <Menu iconShape="circle">
           <SubMenu title={"Quản Lí"} icon={<FaList />}>
-            <MenuItem>Quản Lí Users</MenuItem>
+            <MenuItem>
+              Quản Lí Users <Link to={"/admin/manage-user"} />
+            </MenuItem>
             <MenuItem>Quản Lí Quiz</MenuItem>
             <MenuItem>Quản Lí Question</MenuItem>
           </SubMenu>

@@ -1,0 +1,36 @@
+import { getType } from "../../../utils/typeAction";
+import { typeActionPostLogin } from "./actions";
+
+export const initState = {
+  isLoadingPostLogin: false,
+  isErrorPostLogin: null,
+  dataPostLogin: null,
+};
+
+const postLoginSlice = (state = initState, action) => {
+  switch (action.type) {
+    case getType(typeActionPostLogin.fetchPostLoginRequest):
+      return {
+        isLoadingPostLogin: true,
+        isErrorPostLogin: null,
+        dataPostLogin: null,
+      };
+    case getType(typeActionPostLogin.fetchPostLoginSuccess):
+      return {
+        isLoadingPostLogin: false,
+        isErrorPostLogin: null,
+        dataPostLogin: action.payload,
+      };
+    case getType(typeActionPostLogin.fetchPostLoginFailed):
+      return {
+        isLoadingPostLogin: false,
+        isErrorPostLogin: action.payload,
+        dataPostLogin: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default postLoginSlice;
