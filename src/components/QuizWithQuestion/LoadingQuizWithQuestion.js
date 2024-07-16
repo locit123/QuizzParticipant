@@ -8,7 +8,7 @@ const LoadingQuizWithQuestion = ({ data, index, handleFindCheckbox }) => {
     <>
       <div className="img mb-3">
         {data?.imageFile && (
-          <img src={`data:image/jpeg;base64,${data.imageFile}`} />
+          <img src={`data:image/jpeg;base64,${data.imageFile}`} alt="img" />
         )}
       </div>
       <div className="quiz-content-question mb-3">

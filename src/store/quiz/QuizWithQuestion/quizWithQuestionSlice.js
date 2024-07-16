@@ -23,7 +23,7 @@ const quizWithQuestionSlice = (state = initState, action) => {
         isErrorQuizWithQuestion: null,
         dataQuizWithQuestion: action.payload,
       };
-    case getType(typeActionQuizWithQuestion.fetchQuizWithQuestionSuccess):
+    case getType(typeActionQuizWithQuestion.fetchQuizWithQuestionFailed):
       return {
         ...state,
         isLoadingQuizWithQuestion: false,

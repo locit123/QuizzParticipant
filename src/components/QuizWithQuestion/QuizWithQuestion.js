@@ -6,13 +6,20 @@ import "./QuizWithQuestion.scss";
 import { quizWithQuestionState } from "../../store/selector";
 import LoadingQuizWithQuestion from "./LoadingQuizWithQuestion";
 import _ from "lodash";
+import { postFinishAnswer } from "../../api/apiAnswers/fetchApiAnswer";
+import ModalFinish from "./ModalFinish";
 const QuizWithQuestion = () => {
   const location = useLocation();
+  const paramsId = useParams();
+
   const stateQuizWithQuestion = useSelector(quizWithQuestionState);
-  console.log(stateQuizWithQuestion, "state");
   const { dataQuizWithQuestion } = stateQuizWithQuestion;
   const [index, setIndex] = useState(0);
   const [newData, setNewData] = useState([]);
+  const [dataModalResult, setDataModalResult] = useState({});
+  const [show, setShow] = useState(false);
+  const quizId = paramsId?.id;
+  const dispatch = useDispatch();
   const data = dataQuizWithQuestion?.qa;
 
   useEffect(() => {
@@ -30,9 +37,6 @@ const QuizWithQuestion = () => {
     }
   }, [dataQuizWithQuestion]);
 
-  const paramsId = useParams();
-  const quizId = paramsId?.id;
-  const dispatch = useDispatch();
   const getApi = useCallback(async () => {
     await getQuizWithQuestion(dispatch, quizId);
   }, [dispatch, quizId]);
@@ -48,12 +52,32 @@ const QuizWithQuestion = () => {
   const handleClickNext = () => {
     if (data && data.length > index + 1) setIndex(index + 1);
   };
+  const handleClickFinish = async () => {
+    const payload = { quizId: +quizId, answers: [] };
+    let answers = [];
+    if (newData && data.length > 0) {
+      newData.forEach((item) => {
+        let questionId = item.id;
+        let userAnswerId = [];
+        item.answers.forEach((item) => {
+          if (item.isSelected === true) {
+            userAnswerId.push(item.id);
+          }
+        });
+        answers.push({
+          questionId: +questionId,
+          userAnswerId,
+        });
+      });
+      payload.answers = answers;
+    }
+
+    //Show finish
+    await postFinishAnswer(payload, setDataModalResult, setShow);
+  };
 
   const handleFindCheckbox = (aId, qId) => {
-    console.log(aId, qId);
-
     const dataClone = _.cloneDeep(newData);
-    console.log(dataClone, "DATA CLONE");
     const clone = dataClone.find((item) => item.id === qId);
     if (clone && clone.answers) {
       const a = clone.answers.map((answers) => {
@@ -65,12 +89,12 @@ const QuizWithQuestion = () => {
       clone.answers = a;
     }
     const index = dataClone.findIndex((item) => item.id === qId);
-    console.log(index, "INDEX");
     if (index > -1) {
       dataClone[index] = clone;
       setNewData(dataClone);
     }
   };
+
   return (
     <div className="layout-quiz-with-question container">
       <div className="box-left">
@@ -100,12 +124,22 @@ const QuizWithQuestion = () => {
             </>
           ) : (
             newData?.length === index + 1 && (
-              <button className="btn btn-secondary" onClick={handleClickPrev}>
-                PREV
-              </button>
+              <>
+                <button className="btn btn-secondary" onClick={handleClickPrev}>
+                  PREV
+                </button>
+                <button className="btn btn-warning" onClick={handleClickFinish}>
+                  Finish
+                </button>
+              </>
             )
           )}
         </div>
+        <ModalFinish
+          show={show}
+          setShow={setShow}
+          dataModalResult={dataModalResult}
+        />
       </div>
       <div className="box-right">b</div>
     </div>

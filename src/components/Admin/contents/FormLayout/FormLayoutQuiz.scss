@@ -1,0 +1,48 @@
+.form-quiz{
+    .file-img{
+        border: 1px solid rgb(161, 159, 159);
+        width: fit-content;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: rgb(168, 165, 165);
+        color: #fff;
+        box-shadow: 1px 5px 5px #333232;
+        transition: transform .5s ease-in-out;
+        .label{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        &:hover{
+            opacity: .8;
+            box-shadow: none;
+            transform: translateY(6px);
+        }
+    }
+    .img{
+        border: 1px dashed #333232;
+        height: 200px;
+        .span{
+            font-weight: bold;
+            height: 100%;
+            font-family: sans-serif;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span{
+                color: #333232;
+                font-size: 1.2rem;
+            }
+        }
+.text-center{
+width: 100%;
+height: 100%;
+    img{
+        max-width: 100%;
+        max-height: 100%;
+    
+    }
+}
+    }
+}

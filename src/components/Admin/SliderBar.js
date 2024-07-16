@@ -11,8 +11,9 @@ import {
 import { FaTachometerAlt, FaList, FaGithub } from "react-icons/fa";
 import { FaReact } from "react-icons/fa6";
 import sidebarBg from "../../assets/bg2.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
+  const navigate = useNavigate();
   return (
     <ProSidebar
       image={sidebarBg}
@@ -24,6 +25,7 @@ const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
     >
       <SidebarHeader>
         <div
+          onClick={() => navigate("/")}
           style={{
             padding: "24px",
             textTransform: "uppercase",
@@ -33,6 +35,7 @@ const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
+            cursor: "pointer",
             textAlign: "center",
           }}
         >
@@ -55,7 +58,9 @@ const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
             <MenuItem>
               Quản Lí Users <Link to={"/admin/manage-user"} />
             </MenuItem>
-            <MenuItem>Quản Lí Quiz</MenuItem>
+            <MenuItem>
+              Quản Lí Quiz <Link to={"/admin/manage-quizzes"} />
+            </MenuItem>
             <MenuItem>Quản Lí Question</MenuItem>
           </SubMenu>
         </Menu>
