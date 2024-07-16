@@ -10,10 +10,12 @@ const fetchApiParticipants = {
 
 const fetchApiAuth = {
   login: (data) => axiosInstance.post(`login`, data),
+  register: (data) => axiosInstance.post(`register`, data),
 };
 
 const fetchApiQuiz = {
   getQBP: () => axiosInstance.get(`quiz-by-participant`),
+  getQWQ: (id) => axiosInstance.get(`quiz-with-qa/${id}`),
 };
 
 export { fetchApiParticipants, fetchApiAuth, fetchApiQuiz };

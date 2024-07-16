@@ -1,4 +1,5 @@
-import { typeActionGetQuizByParticipant } from "../../store/quiz/actions";
+import { typeActionGetQuizByParticipant } from "../../store/quiz/QuizByParticipant/actions";
+import { typeActionQuizWithQuestion } from "../../store/quiz/QuizWithQuestion/actions";
 import { fetchApiQuiz } from "../fetchApi";
 
 const getQuizByParticipant = async (dispatch) => {
@@ -12,4 +13,14 @@ const getQuizByParticipant = async (dispatch) => {
     dispatch(typeActionGetQuizByParticipant.fetchQuizByParticipantFailed(res));
   }
 };
-export { getQuizByParticipant };
+
+const getQuizWithQuestion = async (dispatch, id) => {
+  dispatch(typeActionQuizWithQuestion.fetchQuizWithQuestionRequest());
+  const res = await fetchApiQuiz.getQWQ(id);
+  if (res && res?.EC === 0) {
+    dispatch(typeActionQuizWithQuestion.fetchQuizWithQuestionSuccess(res?.DT));
+  } else {
+    dispatch(typeActionQuizWithQuestion.fetchQuizWithQuestionFailed(res));
+  }
+};
+export { getQuizByParticipant, getQuizWithQuestion };

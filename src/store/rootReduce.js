@@ -6,7 +6,9 @@ import participantDeleteSlice from "./participant/delete/participantDeleteSlice"
 import valueUserSlice from "./valueForm/valueUser/valueUserSlice";
 import putParticipantSlice from "./participant/put/putParticipantSlice";
 import postLoginSlice from "./auth/postLogin/postLoginSlice";
-import getQuizByParticipantSlice from "./quiz/getQuizByParticipantSlice";
+import getQuizByParticipantSlice from "./quiz/QuizByParticipant/getQuizByParticipantSlice";
+import postRegisterSlice from "./auth/postRegister/postRegisterSlice";
+import quizWithQuestionSlice from "./quiz/QuizWithQuestion/quizWithQuestionSlice";
 
 const rootReducer = combineReducers({
   modalUser: modalUserSlice,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   putParticipant: putParticipantSlice,
   login: postLoginSlice,
   getQuizByParticipant: getQuizByParticipantSlice,
+  register: postRegisterSlice,
+  quizWithQuestion: quizWithQuestionSlice,
 });
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-import { getType } from "../../utils/typeAction";
+import { getType } from "../../../utils/typeAction";
 import { typeActionGetQuizByParticipant } from "./actions";
 
 export const initState = {

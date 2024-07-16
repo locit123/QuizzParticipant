@@ -1,40 +1,46 @@
 import React, { useState } from "react";
-import "./Login.css";
+import "../Login/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../../api/apiAuth/fetchApiAuth";
-import { loginState } from "../../store/selector";
+import { registerState } from "../../store/selector";
 import { ImSpinner9 } from "react-icons/im";
-const Login = () => {
+import { postRegister } from "../../api/apiAuth/fetchApiAuth";
+const Register = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const statusLoginState = useSelector(loginState);
-  console.log(statusLoginState, "alo");
-  const { isLoadingPostLogin } = statusLoginState;
+  const StatusRegisterState = useSelector(registerState);
+  const { isLoadingPostRegister } = StatusRegisterState;
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const handleClickLogin = async (e) => {
+  const handleClickRegister = async (e) => {
     e.preventDefault();
-
-    await postLogin(
-      dispatch,
-      { email, password, delay: 5000 },
-      setIsLoading,
-      navigate
-    );
+    const data = { username, email, password };
+    await postRegister(dispatch, data, setIsLoading, navigate);
   };
   return (
     <div className="container2">
       <section id="content">
-        <h1>Login Form</h1>
+        <h1>Register Form</h1>
+        <div className="mx-3 mb-3">
+          <input
+            type="text"
+            placeholder="Username"
+            required=""
+            id="username"
+            className="form-control"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
         <div className="mx-3">
           <input
             type="text"
             placeholder="Email"
             required=""
-            id="username"
+            id="email"
             className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -62,12 +68,14 @@ const Login = () => {
           <div style={{ flex: "1" }}></div>
           <div style={{ flex: "1" }}>
             <button
-              onClick={handleClickLogin}
+              onClick={handleClickRegister}
               className="btn btn-secondary mt-3 mb-3"
               disabled={isLoading}
             >
-              {isLoadingPostLogin && <ImSpinner9 className="spinner rotate" />}
-              Log in
+              {isLoadingPostRegister && (
+                <ImSpinner9 className="spinner rotate" />
+              )}
+              Sign up
             </button>
           </div>
           <Link
@@ -90,4 +98,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

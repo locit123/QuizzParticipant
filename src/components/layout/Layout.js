@@ -9,6 +9,8 @@ import DashBoard from "../DashBoard/DashBoard";
 import ManageUser from "../ManageUser/ManageUser";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Register from "../register/Register";
+import QuizWithQuestion from "../QuizWithQuestion/QuizWithQuestion";
 const Layout = () => {
   return (
     <>
@@ -22,6 +24,8 @@ const Layout = () => {
           <Route path="manage-user" element={<ManageUser />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/quiz-question/:id" element={<QuizWithQuestion />} />
       </Routes>
       <ToastContainer
         position="top-right"

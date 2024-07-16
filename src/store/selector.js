@@ -13,5 +13,7 @@ export const roleState = (state) => state.valueFormUser.role;
 export const userImageState = (state) => state.valueFormUser.userImage;
 /*************************************AUTH *********************************/
 export const loginState = (state) => state.login;
+export const registerState = (state) => state.register;
 /*************************************QUIZ *********************************/
 export const getQuizByParticipantState = (state) => state.getQuizByParticipant;
+export const quizWithQuestionState = (state) => state.quizWithQuestion;
