@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
@@ -9,7 +9,7 @@ import ConvertToBase from "../../../../utils/convertToBase64";
 const options = [
   { value: "EASY", label: "EASY" },
   { value: "MEDIUM", label: "MEDIUM" },
-  { value: "HERD", label: "HERD" },
+  { value: "HARD", label: "HARD" }, // Đã sửa "HERD" thành "HARD"
 ];
 
 const FormLayoutQuiz = ({
@@ -20,8 +20,16 @@ const FormLayoutQuiz = ({
   name,
   description,
   difficulty,
+  title,
+  quizImage,
 }) => {
   const [image, setImage] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+  useEffect(() => {
+    // Tìm tùy chọn khớp với giá trị hiện tại của difficulty
+    const selected = options.find((option) => option.value === difficulty);
+    setSelectedOption(selected);
+  }, [difficulty]);
 
   const handleChangeFile = async (e) => {
     const file = e.target.files[0];
@@ -33,10 +41,16 @@ const FormLayoutQuiz = ({
       setImage(null);
     }
   };
+
+  const handleDifficultyChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    setDifficulty(selectedOption.value);
+  };
+
   return (
     <div className="form-quiz">
       <fieldset className="border rounded-3 p-3">
-        <legend className="float-none w-auto px-3">Create Quiz:</legend>
+        <legend className="float-none w-auto px-3">{title}</legend>
         <FloatingLabel label="Name" className="mb-3">
           <Form.Control
             type="text"
@@ -56,8 +70,8 @@ const FormLayoutQuiz = ({
       </fieldset>
       <div className="my-3">
         <Select
-          defaultValue={difficulty}
-          onChange={setDifficulty}
+          value={selectedOption}
+          onChange={handleDifficultyChange}
           options={options}
           placeholder={"chose... "}
         />
@@ -70,9 +84,9 @@ const FormLayoutQuiz = ({
         </label>
       </div>
       <div className="img mt-3">
-        {image ? (
+        {image || quizImage ? (
           <div className="text-center">
-            <img alt="hinh anh" src={image} />
+            <img alt="hinh anh" src={image ? image : quizImage} />
           </div>
         ) : (
           <div className="span">

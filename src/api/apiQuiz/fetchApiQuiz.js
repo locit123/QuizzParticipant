@@ -29,12 +29,13 @@ const postQuiz = async (
   name,
   difficulty,
   quizImage,
-  handleClose
+  handleClose,
+  setListDataQuiz
 ) => {
   const formData = new FormData();
   formData.append("description", description);
   formData.append("name", name);
-  formData.append("difficulty", difficulty?.value);
+  formData.append("difficulty", difficulty);
   formData.append("quizImage", quizImage);
   if (!description || !name) {
     toast.error("Your Description/Name ,Please");
@@ -44,8 +45,63 @@ const postQuiz = async (
   if (res && res.EC === 0) {
     toast.success(res.EM);
     handleClose();
+    await getQuizAll("all", setListDataQuiz);
   } else {
     toast.error(res.EM);
   }
 };
-export { getQuizByParticipant, getQuizWithQuestion, postQuiz };
+
+const getQuizAll = async (payload, setListDataQuiz) => {
+  const res = await fetchApiQuiz.getQA(payload);
+  if (res && res?.EC === 0) {
+    setListDataQuiz(res?.DT);
+  } else {
+    setListDataQuiz([]);
+  }
+};
+
+const deleteQuiz = async (id, handleClose, payload, setListDataQuiz) => {
+  const res = await fetchApiQuiz.deleteQ(id);
+  if (res && res?.EC === 0) {
+    toast.success(res?.EM);
+    handleClose();
+    await getQuizAll(payload, setListDataQuiz);
+  } else {
+    toast.error(res?.EM);
+  }
+};
+
+const putQuiz = async (
+  id,
+  description,
+  name,
+  difficulty,
+  quizImage,
+  handleClose,
+  setListDataQuiz
+) => {
+  const formData = new FormData();
+  formData.append("id", id);
+  formData.append("description", description);
+  formData.append("name", name);
+  formData.append("difficulty", difficulty);
+  formData.append("quizImage", quizImage);
+
+  const res = await fetchApiQuiz.putQ(formData);
+  if (res && res?.EC === 0) {
+    toast.success(res?.EM);
+    handleClose();
+    await getQuizAll("all", setListDataQuiz);
+  } else {
+    toast.error(res?.EM);
+  }
+  console.log(res, "[PUT]");
+};
+export {
+  getQuizByParticipant,
+  getQuizWithQuestion,
+  postQuiz,
+  getQuizAll,
+  deleteQuiz,
+  putQuiz,
+};

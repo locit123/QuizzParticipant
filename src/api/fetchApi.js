@@ -17,6 +17,9 @@ const fetchApiQuiz = {
   getQBP: () => axiosInstance.get(`quiz-by-participant`),
   getQWQ: (id) => axiosInstance.get(`quiz-with-qa/${id}`),
   postQ: (data) => axiosInstance.post(`quiz`, data),
+  getQA: (payload) => axiosInstance.get(`quiz/${payload}`),
+  deleteQ: (id) => axiosInstance.delete(`quiz/${id}`),
+  putQ: (data) => axiosInstance.put(`quiz`, data),
 };
 
 const fetchApiAnswer = {

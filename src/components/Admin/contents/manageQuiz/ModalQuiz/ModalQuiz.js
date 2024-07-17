@@ -1,7 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormLayoutQuiz from "../../FormLayout/FormLayoutQuiz";
-import { postQuiz } from "../../../../../api/apiQuiz/fetchApiQuiz";
+import {
+  deleteQuiz,
+  postQuiz,
+  putQuiz,
+} from "../../../../../api/apiQuiz/fetchApiQuiz";
 
 function ModalQuiz({
   show,
@@ -14,7 +18,10 @@ function ModalQuiz({
   description,
   difficulty,
   quizImage,
+  statusClick,
+  setListDataQuiz,
 }) {
+  console.log(statusClick, "LOG NE");
   const handleClose = () => {
     setShow(false);
     setName("");
@@ -24,7 +31,30 @@ function ModalQuiz({
   };
   const handleClickSave = async (e) => {
     e.preventDefault();
-    await postQuiz(description, name, difficulty, quizImage, handleClose);
+    if (statusClick[0] === "create") {
+      await postQuiz(
+        description,
+        name,
+        difficulty,
+        quizImage,
+        handleClose,
+        setListDataQuiz
+      );
+    }
+    if (statusClick[0] === "delete") {
+      await deleteQuiz(statusClick[1], handleClose, "all", setListDataQuiz);
+    }
+    if (statusClick[0] === "edit") {
+      await putQuiz(
+        statusClick[1],
+        description,
+        name,
+        difficulty,
+        quizImage,
+        handleClose,
+        setListDataQuiz
+      );
+    }
   };
   return (
     <>
@@ -37,23 +67,47 @@ function ModalQuiz({
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <FormLayoutQuiz
-            setName={setName}
-            setDescription={setDescription}
-            setDifficulty={setDifficulty}
-            setQuizImage={setQuizImage}
-            name={name}
-            description={description}
-            difficulty={difficulty}
-            quizImage={quizImage}
-          />
+          {statusClick[0] === "create" || statusClick[0] === "edit" ? (
+            <FormLayoutQuiz
+              title={
+                statusClick[0] === "create"
+                  ? "Create Quiz"
+                  : statusClick[0] === "edit"
+                  ? "Edit Quiz"
+                  : ""
+              }
+              setName={setName}
+              setDescription={setDescription}
+              setDifficulty={setDifficulty}
+              setQuizImage={setQuizImage}
+              name={name}
+              description={description}
+              difficulty={difficulty}
+              quizImage={quizImage}
+            />
+          ) : statusClick[0] === "delete" ? (
+            <div>
+              <span>
+                bạn có chắc chắn là muốn xóa bài quiz <b>{statusClick[2]}</b>{" "}
+                này không?
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={handleClickSave}>
-            Save Changes
+            {statusClick[0] === "create"
+              ? "Create Quiz"
+              : statusClick[0] === "delete"
+              ? "Delete Quiz"
+              : statusClick[0] === "edit"
+              ? "Edit Quiz"
+              : ""}
           </Button>
         </Modal.Footer>
       </Modal>
