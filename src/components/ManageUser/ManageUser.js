@@ -60,6 +60,7 @@ const ManageUser = () => {
       ) : (
         <>
           <div className="context mt-3">
+            <h1>Manage Users</h1>
             <button className="btn btn-primary" onClick={handleClickShowModal}>
               Add New Users
             </button>

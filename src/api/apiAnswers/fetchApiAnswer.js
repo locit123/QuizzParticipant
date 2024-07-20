@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { fetchApiAnswer } from "../fetchApi";
 
 const postFinishAnswer = async (data, setDataModalResult, setShow) => {
@@ -14,4 +15,13 @@ const postFinishAnswer = async (data, setDataModalResult, setShow) => {
   }
 };
 
-export { postFinishAnswer };
+const postAnswer = async (description, correct_answer, question_id) => {
+  const data = { description, correct_answer, question_id };
+  const res = await fetchApiAnswer.postA(data);
+  if (res && res?.EC === 0) {
+    toast.success(res.EM);
+  } else {
+    toast.error(res.EM);
+  }
+};
+export { postFinishAnswer, postAnswer };

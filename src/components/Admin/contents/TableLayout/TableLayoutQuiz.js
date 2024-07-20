@@ -49,7 +49,7 @@ function TableLayoutQuiz({
   };
   return (
     <>
-      <Table striped bordered hover>
+      <Table striped bordered>
         <thead>
           <tr>
             <th>#Id</th>
@@ -106,27 +106,29 @@ function TableLayoutQuiz({
           )}
         </tbody>
       </Table>
-      <ReactPaginate
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={totalPages}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageChange}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"}
-        pageClassName="page-tem"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLinkClassName="page-link"
-        forcePage={currentPage}
-      />
+      <div className="text-center">
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          pageClassName="page-tem"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLinkClassName="page-link"
+          forcePage={currentPage}
+        />
+      </div>
     </>
   );
 }

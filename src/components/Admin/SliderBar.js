@@ -61,7 +61,9 @@ const SliderBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
             <MenuItem>
               Quản Lí Quiz <Link to={"/admin/manage-quizzes"} />
             </MenuItem>
-            <MenuItem>Quản Lí Question</MenuItem>
+            <MenuItem>
+              Quản Lí Question <Link to={"/admin/manage-questions"} />
+            </MenuItem>
           </SubMenu>
         </Menu>
       </SidebarContent>

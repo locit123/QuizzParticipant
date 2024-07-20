@@ -2,16 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
-
-import "react-pro-sidebar/dist/css/styles.css";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
-
-import "nprogress/nprogress.css";
 import { PersistGate } from "redux-persist/integration/react";
 import Layout from "./components/layout/Layout";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import "react-pro-sidebar/dist/css/styles.css";
+import "nprogress/nprogress.css";
+import "lightbox.js-react/dist/index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

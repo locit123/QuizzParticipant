@@ -1,0 +1,91 @@
+.content-questions {
+    .select-quizzes {
+        p {
+            margin: 0;
+        }
+    }
+
+    .add-questions {
+
+        .box-content-question {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            .box-left {
+                .mb-3{
+                    .is-invalid2 {
+                            border: 1px solid red;
+                        }
+                }
+            }
+
+            .box-right {
+                display: flex;
+                align-items: center;
+                gap: 25px;
+
+                .file {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    .ic-image {
+                        color: #0b00ff;
+                        cursor: pointer;
+                        font-size: 25px;
+                    }
+                }
+
+                .btn-add {
+                    .ic-plus {
+                        font-size: 25px;
+                        margin-right: 10px;
+                        cursor: pointer;
+                        color: #14b46a;
+                    }
+
+                    .ic-minus {
+                        font-size: 25px;
+                        margin-right: 25px;
+                        cursor: pointer;
+                        color: #d93939;
+                    }
+                }
+            }
+        }
+
+        .box-content-answer {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            .checkbox {
+                width: 25px;
+                cursor: pointer;
+                height: 25px;
+
+            }
+
+            .input {
+                width: 50%;
+            }
+
+            .btn-add-answers {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                .ic-plus {
+                    font-size: 25px;
+                    cursor: pointer;
+                }
+
+                .ic-minus {
+                    cursor: pointer;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}

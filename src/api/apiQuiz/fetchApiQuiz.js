@@ -51,10 +51,20 @@ const postQuiz = async (
   }
 };
 
-const getQuizAll = async (payload, setListDataQuiz) => {
+const getQuizAll = async (payload, setListDataQuiz, type) => {
   const res = await fetchApiQuiz.getQA(payload);
   if (res && res?.EC === 0) {
-    setListDataQuiz(res?.DT);
+    if (type === "SELECT_OPTION") {
+      let newData = res?.DT?.map((item) => {
+        return {
+          value: item.id,
+          label: `${item.id}-${item.description}`,
+        };
+      });
+      setListDataQuiz(newData);
+    } else {
+      setListDataQuiz(res?.DT);
+    }
   } else {
     setListDataQuiz([]);
   }

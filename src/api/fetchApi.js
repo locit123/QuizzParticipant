@@ -24,6 +24,15 @@ const fetchApiQuiz = {
 
 const fetchApiAnswer = {
   postFA: (data) => axiosInstance.post(`quiz-submit`, { ...data }),
+  postA: (data) => axiosInstance.post(`answer`, data),
 };
-
-export { fetchApiParticipants, fetchApiAuth, fetchApiQuiz, fetchApiAnswer };
+const fetchApiQuestion = {
+  postQ: (data) => axiosInstance.post(`question`, data),
+};
+export {
+  fetchApiParticipants,
+  fetchApiAuth,
+  fetchApiQuiz,
+  fetchApiAnswer,
+  fetchApiQuestion,
+};

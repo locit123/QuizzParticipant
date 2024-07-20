@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SliderBar from "./SliderBar";
 import "./Admin.scss";
 import { ImMenu } from "react-icons/im";
-
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { Outlet } from "react-router-dom";
 const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -12,8 +12,8 @@ const Admin = () => {
       <div className="admin_slider">
         <SliderBar collapsed={collapsed} />
       </div>
-      <div className="admin-content px-3">
-        <div className="im-menu">
+      <div className="admin-content">
+        <div className="im-menu ">
           <ImMenu
             className="ic-menu"
             style={{ cursor: "pointer" }}
@@ -21,7 +21,11 @@ const Admin = () => {
             onClick={() => setCollapsed(!collapsed)}
           />
         </div>
-        <Outlet />
+        <div className="content">
+          <PerfectScrollbar>
+            <Outlet />
+          </PerfectScrollbar>
+        </div>
       </div>
     </div>
   );

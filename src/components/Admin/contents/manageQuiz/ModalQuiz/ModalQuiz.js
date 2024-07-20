@@ -21,7 +21,6 @@ function ModalQuiz({
   statusClick,
   setListDataQuiz,
 }) {
-  console.log(statusClick, "LOG NE");
   const handleClose = () => {
     setShow(false);
     setName("");
