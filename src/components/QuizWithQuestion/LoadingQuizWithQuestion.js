@@ -1,7 +1,6 @@
 import React from "react";
 
 const LoadingQuizWithQuestion = ({ data, index, handleFindCheckbox }) => {
-  console.log(data, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
   const handleChangeCheckbox = (e, aId, qId) => {
     handleFindCheckbox(aId, qId);
   };

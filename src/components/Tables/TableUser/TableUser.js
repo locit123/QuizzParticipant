@@ -56,7 +56,7 @@ function TableUser({ currentPage, setCurrentPage, setShow }) {
         nextClassName="page-item"
         nextLinkClassName="page-link"
         breakLinkClassName="page-link"
-        forcePage={currentPage - 1}
+        forcePage={currentPage}
       />
     </>
   );

@@ -59,4 +59,25 @@ const putParticipant = async (dispatch, data, page, limit, handleClose) => {
     dispatch(typeActionPutParticipant.fetchPutParticipantFailed(res));
   }
 };
-export { postParticipant, getParticipant, destroyParticipant, putParticipant };
+
+const getAllParticipant = async (setListDataUsers) => {
+  const res = await fetchApiParticipants.getPA();
+  if (res && res?.EC === 0) {
+    let newDataUsers = res?.DT.map((item) => {
+      return {
+        value: item.id,
+        label: `${item.id} - ${item.username} - ${item.email}`,
+      };
+    });
+    setListDataUsers(newDataUsers);
+  } else {
+    setListDataUsers([]);
+  }
+};
+export {
+  postParticipant,
+  getParticipant,
+  destroyParticipant,
+  putParticipant,
+  getAllParticipant,
+};

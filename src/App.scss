@@ -41,6 +41,7 @@ body{
 
     .main-container {
         .app-content {
+            height: calc(100vh - 80px);
             .layout-home {
                 display: flex;
                 gap: 20px;

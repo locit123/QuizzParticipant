@@ -9,7 +9,6 @@ const User = () => {
   const getQuiz = useSelector(getQuizByParticipantState);
   const { dataGetQuizByParticipant } = getQuiz;
 
-  console.log(getQuiz);
   const getApiQuiz = useCallback(async () => {
     await getQuizByParticipant(dispatch);
   }, [dispatch]);

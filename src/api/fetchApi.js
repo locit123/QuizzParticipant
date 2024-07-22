@@ -6,6 +6,7 @@ const fetchApiParticipants = {
     axiosInstance.get(`participant?page=${page}&limit=${limit}`),
   deleteP: (id) => axiosInstance.delete(`participant`, { data: { id } }),
   putP: (data) => axiosInstance.put(`participant`, data),
+  getPA: () => axiosInstance.get(`participant/all`),
 };
 
 const fetchApiAuth = {
@@ -20,6 +21,7 @@ const fetchApiQuiz = {
   getQA: (payload) => axiosInstance.get(`quiz/${payload}`),
   deleteQ: (id) => axiosInstance.delete(`quiz/${id}`),
   putQ: (data) => axiosInstance.put(`quiz`, data),
+  postA_Q_T_U: (data) => axiosInstance.post(`quiz-assign-to-user`, data),
 };
 
 const fetchApiAnswer = {

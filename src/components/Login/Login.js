@@ -10,7 +10,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const statusLoginState = useSelector(loginState);
-  console.log(statusLoginState, "alo");
   const { isLoadingPostLogin } = statusLoginState;
   const navigate = useNavigate();
 

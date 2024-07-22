@@ -37,7 +37,8 @@ function ModalQuiz({
         difficulty,
         quizImage,
         handleClose,
-        setListDataQuiz
+        setListDataQuiz,
+        "ASSIGN_QUIZ"
       );
     }
     if (statusClick[0] === "delete") {

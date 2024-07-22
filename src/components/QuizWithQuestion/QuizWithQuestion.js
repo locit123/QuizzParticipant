@@ -13,7 +13,6 @@ const QuizWithQuestion = () => {
   const paramsId = useParams();
 
   const stateQuizWithQuestion = useSelector(quizWithQuestionState);
-  console.log(stateQuizWithQuestion, "LOGGGGGGGGGGGGGGG");
   const { dataQuizWithQuestion } = stateQuizWithQuestion;
   const [index, setIndex] = useState(0);
   const [newData, setNewData] = useState([]);
@@ -76,7 +75,6 @@ const QuizWithQuestion = () => {
     await postFinishAnswer(payload, setDataModalResult, setShow);
   };
 
-  console.log(newData, "DATA NEW");
   const handleFindCheckbox = (aId, qId) => {
     const dataClone = _.cloneDeep(newData);
     const clone = dataClone.find((item) => item.id === qId);

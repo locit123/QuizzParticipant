@@ -14,11 +14,16 @@ const getQuizByParticipant = async (dispatch) => {
   }
 };
 
-const getQuizWithQuestion = async (dispatch, id) => {
+const getQuizWithQuestion = async (
+  dispatch,
+  id,
+  setListDataQuizWithQuestion
+) => {
   dispatch(typeActionQuizWithQuestion.fetchQuizWithQuestionRequest());
   const res = await fetchApiQuiz.getQWQ(id);
   if (res && res?.EC === 0) {
     dispatch(typeActionQuizWithQuestion.fetchQuizWithQuestionSuccess(res?.DT));
+    setListDataQuizWithQuestion(res?.DT);
   } else {
     dispatch(typeActionQuizWithQuestion.fetchQuizWithQuestionFailed(res));
   }
@@ -30,7 +35,8 @@ const postQuiz = async (
   difficulty,
   quizImage,
   handleClose,
-  setListDataQuiz
+  setListDataQuiz,
+  type
 ) => {
   const formData = new FormData();
   formData.append("description", description);
@@ -51,20 +57,10 @@ const postQuiz = async (
   }
 };
 
-const getQuizAll = async (payload, setListDataQuiz, type) => {
+const getQuizAll = async (payload, setListDataQuiz) => {
   const res = await fetchApiQuiz.getQA(payload);
   if (res && res?.EC === 0) {
-    if (type === "SELECT_OPTION") {
-      let newData = res?.DT?.map((item) => {
-        return {
-          value: item.id,
-          label: `${item.id}-${item.description}`,
-        };
-      });
-      setListDataQuiz(newData);
-    } else {
-      setListDataQuiz(res?.DT);
-    }
+    setListDataQuiz(res?.DT);
   } else {
     setListDataQuiz([]);
   }
@@ -105,7 +101,23 @@ const putQuiz = async (
   } else {
     toast.error(res?.EM);
   }
-  console.log(res, "[PUT]");
+};
+
+const postAssignQuizToUser = async (
+  quizId,
+  userId,
+  setSelectedQuiz,
+  setSelectedUser
+) => {
+  const data = { quizId, userId };
+  const res = await fetchApiQuiz.postA_Q_T_U(data);
+  if (res && res?.EC === 0) {
+    toast.success(res?.EM);
+    setSelectedQuiz(null);
+    setSelectedUser(null);
+  } else {
+    toast.error(res?.EM);
+  }
 };
 export {
   getQuizByParticipant,
@@ -114,4 +126,5 @@ export {
   getQuizAll,
   deleteQuiz,
   putQuiz,
+  postAssignQuizToUser,
 };

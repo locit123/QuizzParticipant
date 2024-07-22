@@ -20,7 +20,7 @@ function TableLayoutQuiz({
     setCurrentPage(s.selected);
   };
   const getApiQuizAll = useCallback(async () => {
-    await getQuizAll("all", setListDataQuiz);
+    await getQuizAll("all", setListDataQuiz, "all");
   }, [setListDataQuiz]);
 
   useEffect(() => {

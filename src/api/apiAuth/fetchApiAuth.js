@@ -33,7 +33,6 @@ const postRegister = async (dispatch, data, setIsLoading, navigate) => {
     toast.error(res?.EM);
     setIsLoading(false);
   }
-  console.log(res, "[REGISTER]");
 };
 
 export { postLogin, postRegister };
