@@ -11,7 +11,12 @@ import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { getQuizWithQuestion } from "../../../../../api/apiQuiz/fetchApiQuiz";
+import {
+  getQuizWithQuestion,
+  postUpsertQuizWithQuestion,
+} from "../../../../../api/apiQuiz/fetchApiQuiz";
+import { convertBase64ToFile } from "../../../../../utils/convertBase64ToFiles";
+import ConvertToBase from "../../../../../utils/convertToBase64";
 const UpdateQuestion = ({ listDataQuiz }) => {
   const [dataImage, setDataImage] = useState({
     url: "",
@@ -35,7 +40,6 @@ const UpdateQuestion = ({ listDataQuiz }) => {
     },
   ];
   const [listDataQuestion, setListDataQuestion] = useState(initState);
-  console.log(listDataQuestion, "listDataQuestion");
   const [listDataOption, setListDataOption] = useState([]);
   const dispatch = useDispatch();
   const [listDataQuizWithQuestion, setListDataQuizWithQuestion] = useState([]);
@@ -69,9 +73,34 @@ const UpdateQuestion = ({ listDataQuiz }) => {
     setListDataQuestion(listDataQuizWithQuestion.qa);
   }, [listDataQuizWithQuestion]);
 
+  const showImage = useCallback(async () => {
+    let q = [];
+    for (let i = 0; i < listDataQuizWithQuestion?.qa?.length; i++) {
+      let data = listDataQuizWithQuestion.qa[i];
+      if (data?.imageFile) {
+        let file = await convertBase64ToFile(
+          `data:image/png;base64,${data.imageFile}`,
+          `quiz with question ${data.id}`,
+          "image/png"
+        );
+
+        if (file) {
+          data.imageFile = file;
+          data.imageName = file.name;
+        } else {
+          console.log("err convert base64 to file");
+        }
+      }
+      q.push(data);
+    }
+
+    setListDataQuestion(q);
+  }, [listDataQuizWithQuestion]);
+
   useEffect(() => {
     showQuizWithQuestion();
-  }, [showQuizWithQuestion]);
+    showImage();
+  }, [showQuizWithQuestion, showImage]);
 
   const handleClickAddQuestionAndAnswer = (type, qId) => {
     if (type === "QUESTION") {
@@ -174,7 +203,7 @@ const UpdateQuestion = ({ listDataQuiz }) => {
     setIsOpen(true);
   };
 
-  const handleClickUpdateQuestion = () => {
+  const handleClickUpdateQuestion = async () => {
     let isValid = true;
 
     if (_.isEmpty(selectedOption)) {
@@ -218,7 +247,25 @@ const UpdateQuestion = ({ listDataQuiz }) => {
     });
 
     if (isValid) {
-      alert("ok");
+      const dataClone = _.cloneDeep(listDataQuestion);
+      for (let i = 0; i < dataClone.length; i++) {
+        if (dataClone[i].imageFile) {
+          let fileImage = dataClone[i].imageFile;
+          const fileBase64 = await ConvertToBase.getBase64(fileImage);
+          if (fileBase64) {
+            dataClone[i].imageFile = fileBase64;
+          }
+        }
+      }
+      const data = {
+        quizId: selectedOption.value,
+        questions: dataClone,
+      };
+      await postUpsertQuizWithQuestion(
+        data,
+        setSelectedOption,
+        setListDataQuestion
+      );
     }
   };
 

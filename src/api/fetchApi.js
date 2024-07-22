@@ -22,6 +22,7 @@ const fetchApiQuiz = {
   deleteQ: (id) => axiosInstance.delete(`quiz/${id}`),
   putQ: (data) => axiosInstance.put(`quiz`, data),
   postA_Q_T_U: (data) => axiosInstance.post(`quiz-assign-to-user`, data),
+  postU_S_Q_W_Q: (data) => axiosInstance.post(`quiz-upsert-qa`, { ...data }),
 };
 
 const fetchApiAnswer = {

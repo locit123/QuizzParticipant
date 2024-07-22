@@ -13,6 +13,7 @@ const QuizWithQuestion = () => {
   const paramsId = useParams();
 
   const stateQuizWithQuestion = useSelector(quizWithQuestionState);
+  const [listDataQuizWithQuestion, setListDataQuizWithQuestion] = useState([]);
   const { dataQuizWithQuestion } = stateQuizWithQuestion;
   const [index, setIndex] = useState(0);
   const [newData, setNewData] = useState([]);
@@ -37,7 +38,7 @@ const QuizWithQuestion = () => {
   }, [dataQuizWithQuestion]);
 
   const getApi = useCallback(async () => {
-    await getQuizWithQuestion(dispatch, quizId);
+    await getQuizWithQuestion(dispatch, quizId, setListDataQuizWithQuestion);
   }, [dispatch, quizId]);
 
   useEffect(() => {
@@ -108,11 +109,16 @@ const QuizWithQuestion = () => {
           />
         </div>
         <div className="quiz-footer text-center">
-          {index === 0 ? (
-            <button className="btn btn-primary" onClick={handleClickNext}>
-              NEXT
-            </button>
-          ) : index + 1 < newData?.length ? (
+          {/* {newData.length === 1 ? (
+            <>
+              <button className="btn btn-primary" onClick={handleClickNext}>
+                NEXT
+              </button>
+              <button className="btn btn-warning" onClick={handleClickFinish}>
+                Finish
+              </button>
+            </>
+          ) : newData.length > 1 ? (
             <>
               <button className="btn btn-secondary" onClick={handleClickPrev}>
                 PREV
@@ -132,7 +138,7 @@ const QuizWithQuestion = () => {
                 </button>
               </>
             )
-          )}
+          )} */}
         </div>
         <ModalFinish
           show={show}

@@ -35,8 +35,7 @@ const postQuiz = async (
   difficulty,
   quizImage,
   handleClose,
-  setListDataQuiz,
-  type
+  setListDataQuiz
 ) => {
   const formData = new FormData();
   formData.append("description", description);
@@ -119,6 +118,21 @@ const postAssignQuizToUser = async (
     toast.error(res?.EM);
   }
 };
+
+const postUpsertQuizWithQuestion = async (
+  data,
+  setSelectedOption,
+  setListDataQuestion
+) => {
+  const res = await fetchApiQuiz.postU_S_Q_W_Q(data);
+  if (res && res?.EC === 0) {
+    toast.success(res?.EM);
+    setSelectedOption(null);
+    setListDataQuestion([]);
+  } else {
+    toast.error(res?.EM);
+  }
+};
 export {
   getQuizByParticipant,
   getQuizWithQuestion,
@@ -127,4 +141,5 @@ export {
   deleteQuiz,
   putQuiz,
   postAssignQuizToUser,
+  postUpsertQuizWithQuestion,
 };
