@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import Lightbox from "react-awesome-lightbox";
 
 const LoadingQuizWithQuestion = ({ data, index, handleFindCheckbox }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const handleChangeCheckbox = (e, aId, qId) => {
     handleFindCheckbox(aId, qId);
+  };
+
+  const handleClickImage = () => {
+    setIsOpen(true);
   };
   return (
     <>
       <div className="img mb-3">
         {data?.imageFile && (
-          <img src={`data:image/jpeg;base64,${data.imageFile}`} alt="img" />
+          <img
+            src={`data:image/jpeg;base64,${data.imageFile}`}
+            alt="img"
+            style={{ cursor: "pointer" }}
+            onClick={handleClickImage}
+          />
+        )}
+        {isOpen && (
+          <Lightbox
+            image={`data:image/jpeg;base64,${data.imageFile}`}
+            onClose={() => setIsOpen(false)}
+          />
         )}
       </div>
       <div className="quiz-content-question mb-3">
@@ -22,12 +39,12 @@ const LoadingQuizWithQuestion = ({ data, index, handleFindCheckbox }) => {
               return (
                 <div key={index} className="answer-question">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     checked={item.isSelected}
                     onChange={(e) => handleChangeCheckbox(e, item.id, data.id)}
                   />
-                  <label class="form-check-label">{item.description}</label>
+                  <label className="form-check-label">{item.description}</label>
                 </div>
               );
             })}

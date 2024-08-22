@@ -6,19 +6,27 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { loginState } from "../../store/selector";
-import { typeActionPostLogin } from "../../store/auth/postLogin/actions";
+import {
+  email_state,
+  refresh_token_state,
+  tokenState,
+} from "../../store/selector";
+import { postLogout } from "../../api/apiAuth/fetchApiAuth";
 const Header = () => {
   const navigate = useNavigate();
-  const statusLoginState = useSelector(loginState);
-  const { dataPostLogin } = statusLoginState;
+  const token = useSelector(tokenState);
+  const email = useSelector(email_state);
+  const refresh_token = useSelector(refresh_token_state);
+  console.log(email, refresh_token);
+
   const dispatch = useDispatch();
+
   const handleLogin = () => {
     navigate("/login");
   };
 
-  const handleClickLogout = () => {
-    dispatch(typeActionPostLogin.fetchPostLoginSuccess(null));
+  const handleClickLogout = async () => {
+    await postLogout(dispatch, email, refresh_token, navigate);
   };
 
   const handleRegister = () => {
@@ -44,7 +52,7 @@ const Header = () => {
             </NavLink>
           </Nav>
           <Nav>
-            {!dataPostLogin ? (
+            {!token ? (
               <>
                 <button className="btn-login" onClick={handleLogin}>
                   Login

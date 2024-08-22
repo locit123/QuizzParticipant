@@ -8,6 +8,7 @@ import LoadingQuizWithQuestion from "./LoadingQuizWithQuestion";
 import _ from "lodash";
 import { postFinishAnswer } from "../../api/apiAnswers/fetchApiAnswer";
 import ModalFinish from "./ModalFinish";
+import ContentRight from "./content/ContentRight";
 const QuizWithQuestion = () => {
   const location = useLocation();
   const paramsId = useParams();
@@ -55,7 +56,7 @@ const QuizWithQuestion = () => {
   const handleClickFinish = async () => {
     const payload = { quizId: +quizId, answers: [] };
     let answers = [];
-    if (newData && data.length > 0) {
+    if (newData && data?.length > 0) {
       newData.forEach((item) => {
         let questionId = item.id;
         let userAnswerId = [];
@@ -94,7 +95,6 @@ const QuizWithQuestion = () => {
       setNewData(dataClone);
     }
   };
-
   return (
     <div className="layout-quiz-with-question container">
       <div className="box-left">
@@ -108,37 +108,24 @@ const QuizWithQuestion = () => {
             handleFindCheckbox={handleFindCheckbox}
           />
         </div>
-        <div className="quiz-footer text-center">
-          {/* {newData.length === 1 ? (
-            <>
-              <button className="btn btn-primary" onClick={handleClickNext}>
-                NEXT
-              </button>
-              <button className="btn btn-warning" onClick={handleClickFinish}>
-                Finish
-              </button>
-            </>
-          ) : newData.length > 1 ? (
-            <>
-              <button className="btn btn-secondary" onClick={handleClickPrev}>
-                PREV
-              </button>
-              <button className="btn btn-primary" onClick={handleClickNext}>
-                NEXT
-              </button>
-            </>
-          ) : (
-            newData?.length === index + 1 && (
-              <>
-                <button className="btn btn-secondary" onClick={handleClickPrev}>
-                  PREV
-                </button>
-                <button className="btn btn-warning" onClick={handleClickFinish}>
-                  Finish
-                </button>
-              </>
-            )
-          )} */}
+        <div className="quiz-footer text-center mt-3">
+          <button
+            className="btn btn-primary"
+            onClick={handleClickPrev}
+            disabled={index === 0 ? true : false}
+          >
+            Prev
+          </button>
+          <button
+            className="btn btn-primary mx-3"
+            onClick={handleClickNext}
+            disabled={data?.length > index + 1 ? false : true}
+          >
+            Next
+          </button>
+          <button className="btn btn-warning" onClick={handleClickFinish}>
+            Finish
+          </button>
         </div>
         <ModalFinish
           show={show}
@@ -146,7 +133,13 @@ const QuizWithQuestion = () => {
           dataModalResult={dataModalResult}
         />
       </div>
-      <div className="box-right">b</div>
+      <div className="box-right">
+        <ContentRight
+          data={newData}
+          handleClickFinish={handleClickFinish}
+          setIndex={setIndex}
+        />
+      </div>
     </div>
   );
 };

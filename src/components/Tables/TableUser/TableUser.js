@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import LoadingTableUser from "./LoadingTableUser";
 import ReactPaginate from "react-paginate";
 function TableUser({ currentPage, setCurrentPage, setShow }) {
+  console.log(currentPage, "<<");
   const getState = useSelector(getParticipantState);
   const { dataGetParticipant } = getState;
   const data = dataGetParticipant?.users;
@@ -56,7 +57,7 @@ function TableUser({ currentPage, setCurrentPage, setShow }) {
         nextClassName="page-item"
         nextLinkClassName="page-link"
         breakLinkClassName="page-link"
-        forcePage={currentPage}
+        forcePage={currentPage - 1}
       />
     </>
   );

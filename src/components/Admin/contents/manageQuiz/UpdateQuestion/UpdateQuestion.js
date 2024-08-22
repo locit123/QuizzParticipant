@@ -177,11 +177,9 @@ const UpdateQuestion = ({ listDataQuiz }) => {
       dataClone[index].answers = dataClone[index].answers.map((answer) => {
         if (answer.id === aId) {
           if (type === "CHECKBOX") {
-            console.log(value);
             answer.isCorrect = value;
           }
           if (type === "DESCRIPTION") {
-            console.log(value);
             answer.description = value;
           }
         }
@@ -257,6 +255,8 @@ const UpdateQuestion = ({ listDataQuiz }) => {
           }
         }
       }
+
+      console.log(dataClone, "check data clone");
       const data = {
         quizId: selectedOption.value,
         questions: dataClone,
@@ -268,6 +268,8 @@ const UpdateQuestion = ({ listDataQuiz }) => {
       );
     }
   };
+
+  console.log(listDataQuestion, "check list data question");
 
   const customStyles = {
     menu: (provided) => ({

@@ -32,7 +32,8 @@ function TableLayoutQuiz({
   const offset = currentPage * itemPage;
 
   const newListDataQuiz = listDataQuiz?.slice(offset, offset + itemPage);
-  const totalPages = Math.ceil(listDataQuiz.length / itemPage);
+  const totalPages =
+    listDataQuiz.length > 0 ? Math.ceil(listDataQuiz.length / itemPage) : 1;
 
   const handleClickDelete = (id, name) => {
     setShow(true);
@@ -107,27 +108,29 @@ function TableLayoutQuiz({
         </tbody>
       </Table>
       <div className="text-center">
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={totalPages}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageChange}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-          pageClassName="page-tem"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakLinkClassName="page-link"
-          forcePage={currentPage}
-        />
+        {listDataQuiz.length > 0 && (
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={totalPages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageChange}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+            pageClassName="page-tem"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakLinkClassName="page-link"
+            forcePage={currentPage}
+          />
+        )}
       </div>
     </>
   );

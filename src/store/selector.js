@@ -13,6 +13,10 @@ export const roleState = (state) => state.valueFormUser.role;
 export const userImageState = (state) => state.valueFormUser.userImage;
 /*************************************AUTH *********************************/
 export const loginState = (state) => state.login;
+export const tokenState = (state) => state.login?.dataPostLogin?.access_token;
+export const email_state = (state) => state.login?.dataPostLogin?.email;
+export const refresh_token_state = (state) =>
+  state.login?.dataPostLogin?.refresh_token;
 export const registerState = (state) => state.register;
 /*************************************QUIZ *********************************/
 export const getQuizByParticipantState = (state) => state.getQuizByParticipant;

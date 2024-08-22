@@ -24,6 +24,12 @@ const Login = () => {
       navigate
     );
   };
+
+  const handleOnKeyDown = (e) => {
+    if (e && e.key === "Enter") {
+      handleClickLogin(e);
+    }
+  };
   return (
     <div className="container2">
       <section id="content">
@@ -48,6 +54,7 @@ const Login = () => {
             className="form-control mt-3 mb-3 "
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => handleOnKeyDown(e)}
           />
         </div>
         <div

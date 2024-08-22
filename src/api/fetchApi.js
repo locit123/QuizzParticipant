@@ -12,6 +12,8 @@ const fetchApiParticipants = {
 const fetchApiAuth = {
   login: (data) => axiosInstance.post(`login`, data),
   register: (data) => axiosInstance.post(`register`, data),
+  logout: (data) => axiosInstance.post(`logout`, data),
+  dashBoard: () => axiosInstance.get("overview"),
 };
 
 const fetchApiQuiz = {
@@ -32,6 +34,7 @@ const fetchApiAnswer = {
 const fetchApiQuestion = {
   postQ: (data) => axiosInstance.post(`question`, data),
 };
+
 export {
   fetchApiParticipants,
   fetchApiAuth,

@@ -34,5 +34,20 @@ const postRegister = async (dispatch, data, setIsLoading, navigate) => {
     setIsLoading(false);
   }
 };
-
-export { postLogin, postRegister };
+const postLogout = async (dispatch, email, refresh_token, navigate) => {
+  const data = { email, refresh_token };
+  const res = await fetchApiAuth.logout(data);
+  if (res && res.EC === 0) {
+    dispatch(typeActionPostLogin.userLogout());
+    navigate("/login");
+  }
+};
+const getDashBoard = async (setDataDashBoard) => {
+  const res = await fetchApiAuth.dashBoard();
+  if (res && res.EC === 0) {
+    setDataDashBoard(res.DT);
+  } else {
+    setDataDashBoard([]);
+  }
+};
+export { postLogin, postRegister, postLogout, getDashBoard };

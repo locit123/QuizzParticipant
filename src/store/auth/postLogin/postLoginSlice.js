@@ -30,7 +30,14 @@ const postLoginSlice = (state = initState, action) => {
         isErrorPostLogin: action.payload,
         dataPostLogin: null,
       };
-
+    case getType(typeActionPostLogin.userLogout): {
+      return {
+        ...state,
+        isLoadingPostLogin: false,
+        isErrorPostLogin: null,
+        dataPostLogin: null,
+      };
+    }
     default:
       return state;
   }
