@@ -12,20 +12,15 @@ import { toast } from "react-toastify";
 import { getQuizAll } from "../../../../../api/apiQuiz/fetchApiQuiz";
 import { postAnswer } from "../../../../../api/apiAnswers/fetchApiAnswer";
 import { postQuestion } from "../../../../../api/apiQuestion/fetchApiQuestion";
-import Lightbox from "react-awesome-lightbox";
 
 const Question = () => {
   const cutString = (str) => {
     return str.length > 20 ? str.slice(0, 20) + "..." : str;
   };
   const [selectedOption, setSelectedOption] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [listDataQuiz, setListDataQuiz] = useState([]);
   const [dataListCloneQuiz, setDataListCloneQuiz] = useState([]);
-  const [dataImage, setDataImage] = useState({
-    url: "",
-    title: "",
-  });
+
   const initState = [
     {
       id: uuidv4(),
@@ -249,18 +244,6 @@ const Question = () => {
     setListAddQuestion(initState);
   };
 
-  const handleClickImage = (id) => {
-    let dataClone = _.cloneDeep(listAddQuestion);
-    let index = dataClone.findIndex((item) => item.id === id);
-    if (index > -1) {
-      setDataImage({
-        url: URL.createObjectURL(dataClone[index].imageFile),
-        title: dataClone[index].imageName,
-      });
-      setIsOpen(true);
-    }
-  };
-
   const customStyles = {
     menu: (provided) => ({
       ...provided,
@@ -326,10 +309,7 @@ const Question = () => {
                       />
                       <span>
                         {item.imageName ? (
-                          <div
-                            onClick={() => handleClickImage(item.id)}
-                            style={{ cursor: "pointer" }}
-                          >
+                          <div style={{ cursor: "pointer" }}>
                             {cutString(item.imageName)}
                           </div>
                         ) : (
@@ -416,13 +396,6 @@ const Question = () => {
               </div>
             );
           })}
-        {isOpen && (
-          <Lightbox
-            image={dataImage.url}
-            title={dataImage.title}
-            onClose={() => setIsOpen(false)}
-          />
-        )}
       </div>
       {listAddQuestion && listAddQuestion.length > 0 && (
         <button className="btn btn-primary" onClick={handleClickSave}>

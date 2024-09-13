@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import { LuImagePlus, LuBadgePlus } from "react-icons/lu";
 import { BsFillPatchMinusFill } from "react-icons/bs";
 import { FaRegPlusSquare, FaRegMinusSquare } from "react-icons/fa";
-import Lightbox from "react-awesome-lightbox";
 import "./UpdateQuestion.scss";
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
@@ -18,11 +17,6 @@ import {
 import { convertBase64ToFile } from "../../../../../utils/convertBase64ToFiles";
 import ConvertToBase from "../../../../../utils/convertToBase64";
 const UpdateQuestion = ({ listDataQuiz }) => {
-  const [dataImage, setDataImage] = useState({
-    url: "",
-    title: "",
-  });
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const initState = [
     {
@@ -189,18 +183,6 @@ const UpdateQuestion = ({ listDataQuiz }) => {
     }
   };
 
-  const handleClickImage = (id) => {
-    let dataClone = _.cloneDeep(listDataQuestion);
-    let index = dataClone.findIndex((item) => item.id === id);
-    if (index > -1) {
-      setDataImage({
-        url: URL.createObjectURL(dataClone[index].imageFile),
-        title: dataClone[index].imageName,
-      });
-    }
-    setIsOpen(true);
-  };
-
   const handleClickUpdateQuestion = async () => {
     let isValid = true;
 
@@ -323,12 +305,7 @@ const UpdateQuestion = ({ listDataQuiz }) => {
                   />
                   <span>
                     {item.imageName ? (
-                      <div
-                        onClick={() => handleClickImage(item.id)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {item.imageName}
-                      </div>
+                      <div style={{ cursor: "pointer" }}>{item.imageName}</div>
                     ) : (
                       "0 files upload"
                     )}
@@ -425,13 +402,6 @@ const UpdateQuestion = ({ listDataQuiz }) => {
           </button>
         )}
       </div>
-      {isOpen && (
-        <Lightbox
-          image={dataImage.url}
-          onClose={() => setIsOpen(false)}
-          title={dataImage.title}
-        />
-      )}
     </div>
   );
 };

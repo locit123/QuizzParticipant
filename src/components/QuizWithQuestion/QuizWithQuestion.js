@@ -15,6 +15,8 @@ const QuizWithQuestion = () => {
 
   const stateQuizWithQuestion = useSelector(quizWithQuestionState);
   const [listDataQuizWithQuestion, setListDataQuizWithQuestion] = useState([]);
+  console.log(listDataQuizWithQuestion);
+
   const { dataQuizWithQuestion } = stateQuizWithQuestion;
   const [index, setIndex] = useState(0);
   const [newData, setNewData] = useState([]);
